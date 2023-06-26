@@ -5,6 +5,9 @@ import com.egsys.crud.dto.TaskView
 import com.egsys.crud.dto.UpdateTaskForm
 import com.egsys.crud.service.TaskService
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
@@ -27,8 +30,10 @@ class TaskController(private val service: TaskService) {
 
 
     @GetMapping
-    fun list(@RequestParam(required = false) nameCategory: String?): List<TaskView> {
-       return service.list(nameCategory)
+    fun list(@RequestParam(required = false) nameCategory: String?,
+             pagination: Pageable
+    ): Page<TaskView> {
+       return service.list(nameCategory,pagination)
     }
 
     @GetMapping("/{id}")
