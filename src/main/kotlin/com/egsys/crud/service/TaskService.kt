@@ -21,8 +21,13 @@ class TaskService(
         private val notFoundMessage: String = "Task no Found!"
 ) {
 
-    fun list(): List<TaskView> {
-        return repository.findAll().stream().map { t -> taskViewMapper.map(t) }.collect(Collectors.toList())
+    fun list(nameCategory: String?): List<TaskView> {
+        val tasks = if (nameCategory == null) {
+            repository.findAll()
+        } else {
+            repository.findByCategoryName(nameCategory)
+        }
+        return tasks.stream().map { t -> taskViewMapper.map(t) }.collect(Collectors.toList())
     }
 
     fun searchForId(id: Long): TaskView {

@@ -1,5 +1,5 @@
 package com.egsys.crud
-import org.springframework.core.env.Environment
+
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 

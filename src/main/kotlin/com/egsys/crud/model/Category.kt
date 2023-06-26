@@ -3,6 +3,8 @@ package com.egsys.crud.model
 import jakarta.persistence.*
 
 
+
+
 @Entity
 @Table(name = "Category")
 data class Category(

@@ -4,4 +4,5 @@ import com.egsys.crud.model.Task
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface TaskRepository: JpaRepository<Task,Long> {
+    fun findByCategoryName(nameCategory: String): List<Task>
 }

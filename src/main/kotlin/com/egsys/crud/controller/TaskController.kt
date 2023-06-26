@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
@@ -26,8 +27,8 @@ class TaskController(private val service: TaskService) {
 
 
     @GetMapping
-    fun list(): List<TaskView> {
-       return service.list()
+    fun list(@RequestParam(required = false) nameCategory: String?): List<TaskView> {
+       return service.list(nameCategory)
     }
 
     @GetMapping("/{id}")
