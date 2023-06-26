@@ -7,6 +7,7 @@ import com.egsys.crud.service.TaskService
 import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -31,7 +32,7 @@ class TaskController(private val service: TaskService) {
 
     @GetMapping
     fun list(@RequestParam(required = false) nameCategory: String?,
-             pagination: Pageable
+             @PageableDefault(size = 5, sort = ["dataCreation"], direction = Sort.Direction.DESC) pagination: Pageable
     ): Page<TaskView> {
        return service.list(nameCategory,pagination)
     }
