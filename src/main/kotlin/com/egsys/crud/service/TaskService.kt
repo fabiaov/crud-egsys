@@ -32,7 +32,7 @@ class TaskService(
     fun searchForId(id: Long): TaskView {
         val task = repository.findById(id).stream().filter {
                 t -> t.id == id
-        }.findFirst().orElseThrow{NotFoundException(Companion.notFoundMessage)}
+        }.findFirst().orElseThrow{NotFoundException(notFoundMessage)}
         return taskViewMapper.map(task)
     }
 
@@ -43,7 +43,7 @@ class TaskService(
     }
 
     fun update(form: UpdateTaskForm): TaskView {
-        val task = repository.findById(form.id).orElseThrow{NotFoundException(Companion.notFoundMessage)}
+        val task = repository.findById(form.id).orElseThrow{NotFoundException(notFoundMessage)}
         task.title = form.title
         task.description = form.description
         return taskViewMapper.map(task)
