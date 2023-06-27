@@ -11,18 +11,13 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
-import java.util.stream.Collectors
-
-
 
 @Service
 class TaskService(
         private val repository: TaskRepository,
         private val taskViewMapper: TaskViewMapper,
-        private val taskFormMapper: TaskFormMapper,
-        private val notFoundMessage: String = "Task no Found!"
+        private val taskFormMapper: TaskFormMapper
 ) {
-
     fun list(nameCategory: String?,
              pagination: Pageable
     ): Page<TaskView> {
@@ -37,7 +32,7 @@ class TaskService(
     fun searchForId(id: Long): TaskView {
         val task = repository.findById(id).stream().filter {
                 t -> t.id == id
-        }.findFirst().orElseThrow{NotFoundException(notFoundMessage)}
+        }.findFirst().orElseThrow{NotFoundException(Companion.notFoundMessage)}
         return taskViewMapper.map(task)
     }
 
@@ -48,7 +43,7 @@ class TaskService(
     }
 
     fun update(form: UpdateTaskForm): TaskView {
-        val task = repository.findById(form.id).orElseThrow{NotFoundException(notFoundMessage)}
+        val task = repository.findById(form.id).orElseThrow{NotFoundException(Companion.notFoundMessage)}
         task.title = form.title
         task.description = form.description
         return taskViewMapper.map(task)
@@ -56,5 +51,9 @@ class TaskService(
 
     fun delete(id: Long) {
         repository.deleteById(id)
+    }
+
+    companion object {
+        const val notFoundMessage: String = "Task no Found!"
     }
 }
