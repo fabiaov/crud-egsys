@@ -4,6 +4,9 @@ package com.egsys.crud.model
 import jakarta.persistence.*
 import java.time.LocalDateTime
 import jakarta.persistence.ManyToOne
+import org.hibernate.annotations.CreationTimestamp
+
+
 
 
 @Entity
@@ -15,5 +18,8 @@ data class Task (
         @ManyToOne
         @JoinColumn(name = "category_id")
         var category: Category,
-        val dataCriation: LocalDateTime = LocalDateTime.now()
+        @CreationTimestamp
+        @Temporal(TemporalType.TIMESTAMP)
+        @Column(name = "data_creation")
+        val dataCreation: LocalDateTime = LocalDateTime.now()
 )

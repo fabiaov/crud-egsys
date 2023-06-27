@@ -5,6 +5,12 @@ import com.egsys.crud.dto.TaskView
 import com.egsys.crud.dto.UpdateTaskForm
 import com.egsys.crud.service.TaskService
 import jakarta.validation.Valid
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
@@ -15,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
@@ -26,8 +33,11 @@ class TaskController(private val service: TaskService) {
 
 
     @GetMapping
-    fun list(): List<TaskView> {
-       return service.list()
+    @Cacheable("tasks")
+    fun list(@RequestParam(required = false) nameCategory: String?,
+             @PageableDefault(size = 5, sort = ["dataCreation"], direction = Sort.Direction.DESC) pagination: Pageable
+    ): Page<TaskView> {
+       return service.list(nameCategory,pagination)
     }
 
     @GetMapping("/{id}")
@@ -37,6 +47,7 @@ class TaskController(private val service: TaskService) {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = ["tasks"], allEntries = true)
     fun register(
         @RequestBody @Valid form: TaskForm,
         uriBuilder: UriComponentsBuilder
@@ -48,6 +59,7 @@ class TaskController(private val service: TaskService) {
 
     @PutMapping
     @Transactional
+    @CacheEvict(value = ["tasks"], allEntries = true)
     fun update(@RequestBody @Valid form: UpdateTaskForm):ResponseEntity<TaskView> {
         val taskView = service.update(form)
         return ResponseEntity.ok(taskView)
@@ -56,6 +68,7 @@ class TaskController(private val service: TaskService) {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
+    @CacheEvict(value = ["tasks"], allEntries = true)
     fun delete(@PathVariable id: Long){
         service.delete(id)
     }

@@ -12,7 +12,7 @@ class TaskViewMapper: Mapper<Task, TaskView> {
                 title = t.title,
                 description = t.description,
                 category = t.category,
-                dataCriation = t.dataCriation
+                dataCriation = t.dataCreation
         )
     }
 
