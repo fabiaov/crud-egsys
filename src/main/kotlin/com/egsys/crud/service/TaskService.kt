@@ -7,6 +7,8 @@ import com.egsys.crud.exception.NotFoundException
 import com.egsys.crud.mapper.TaskFormMapper
 import com.egsys.crud.mapper.TaskViewMapper
 import com.egsys.crud.repository.TaskRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 import java.util.stream.Collectors
@@ -21,8 +23,15 @@ class TaskService(
         private val notFoundMessage: String = "Task no Found!"
 ) {
 
-    fun list(): List<TaskView> {
-        return repository.findAll().stream().map { t -> taskViewMapper.map(t) }.collect(Collectors.toList())
+    fun list(nameCategory: String?,
+             pagination: Pageable
+    ): Page<TaskView> {
+        val tasks = if (nameCategory == null) {
+            repository.findAll(pagination)
+        } else {
+            repository.findByCategoryName(nameCategory,pagination)
+        }
+        return tasks.map { t -> taskViewMapper.map(t) }
     }
 
     fun searchForId(id: Long): TaskView {
