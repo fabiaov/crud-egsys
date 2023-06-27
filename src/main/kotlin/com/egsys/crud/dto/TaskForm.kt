@@ -13,5 +13,7 @@ data class TaskForm(
     val description: String,
     @field:NotNull
     val idCategory: Long,
+    @field:NotNull
+    val idAutor: Long
 
     )

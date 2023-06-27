@@ -18,6 +18,9 @@ data class Task (
         @ManyToOne
         @JoinColumn(name = "category_id")
         var category: Category,
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        var autor: User,
         @CreationTimestamp
         @Temporal(TemporalType.TIMESTAMP)
         @Column(name = "data_creation")
