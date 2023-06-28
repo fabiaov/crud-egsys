@@ -1,21 +1,11 @@
 spring:
-  sql:
-    init:
-      mode: never
   datasource:
-      driverClassName:  com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC
-      username: root
-      password: root
-  jpa:
-    hibernate:
-      ddl-auto: update
-    open-in-view: true
-    defer-datasource-initialization: false
-    database-platform: org.hibernate.dialect.MySQLDialect
-  flyway:
-    locations: classpath:db/migration
-    baseline-on-migrate: true
-    url: jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://db:3306/mydb
+    username: root
     password: root
+  flyway:
+    enabled: true
+    url: jdbc:mysql://db:3306/mydb
     user: root
+    password: root
