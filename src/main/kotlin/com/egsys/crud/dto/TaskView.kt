@@ -1,6 +1,7 @@
 package com.egsys.crud.dto
 
 import com.egsys.crud.model.Category
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 
@@ -9,7 +10,8 @@ data class TaskView(
         val title: String,
         val description: String,
         val category: Category,
-        val dataCriation: LocalDateTime
+        val dataCriation: LocalDateTime,
+        val changeData: LocalDate?
 
 ) {
 
