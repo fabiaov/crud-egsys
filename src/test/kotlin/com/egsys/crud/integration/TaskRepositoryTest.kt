@@ -6,8 +6,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.MySQLContainer
-import org.testcontainers.junit.jupiter.Container
+import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Testcontainers
 
 @DataJpaTest
@@ -17,8 +16,8 @@ class TaskRepositoryTest {
     @Autowired
     private lateinit var taskRepository: TaskRepository
     companion object {
-        @Container
-        private val mysqlContainer = MySQLContainer<Nothing> ("mysql:latest").apply {
+        @org.testcontainers.junit.jupiter.Container
+        private val Container = PostgreSQLContainer<Nothing> ("postgres:latest").apply {
             withDatabaseName("testedb")
             withUsername("joao")
             withPassword("12134")
@@ -26,9 +25,9 @@ class TaskRepositoryTest {
         @JvmStatic
         @DynamicPropertySource
         fun properties(registry: DynamicPropertyRegistry) {
-            registry.add("spring.datasource.url", mysqlContainer::getJdbcUrl)
-            registry.add("spring.datasource.password", mysqlContainer::getPassword)
-            registry.add("spring.datasource.username", mysqlContainer::getUsername)
+            registry.add("spring.datasource.url", Container::getJdbcUrl)
+            registry.add("spring.datasource.password", Container::getPassword)
+            registry.add("spring.datasource.username", Container::getUsername)
         }
     }
 }
