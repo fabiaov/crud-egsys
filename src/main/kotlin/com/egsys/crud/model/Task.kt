@@ -5,8 +5,7 @@ import jakarta.persistence.*
 import java.time.LocalDateTime
 import jakarta.persistence.ManyToOne
 import org.hibernate.annotations.CreationTimestamp
-
-
+import java.time.LocalDate
 
 
 @Entity
@@ -21,5 +20,6 @@ data class Task (
         @CreationTimestamp
         @Temporal(TemporalType.TIMESTAMP)
         @Column(name = "data_creation")
-        val dataCreation: LocalDateTime = LocalDateTime.now()
+        val dataCreation: LocalDateTime = LocalDateTime.now(),
+        var changeData: LocalDate? = null
 )

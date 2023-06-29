@@ -10,6 +10,7 @@ import com.egsys.crud.repository.TaskRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 
 
 @Service
@@ -21,11 +22,10 @@ class TaskService(
     fun list(nameCategory: String?,
              pagination: Pageable
     ): Page<TaskView> {
-        val tasks = if (nameCategory == null) {
-            repository.findAll(pagination)
-        } else {
+        val tasks = nameCategory?.let {
             repository.findByCategoryName(nameCategory,pagination)
-        }
+        } ?: repository.findAll(pagination)
+
         return tasks.map { t -> taskViewMapper.map(t) }
     }
 
@@ -46,6 +46,7 @@ class TaskService(
         val task = repository.findById(form.id).orElseThrow{NotFoundException(notFoundMessage)}
         task.title = form.title
         task.description = form.description
+        task.changeData = LocalDate.now()
         return taskViewMapper.map(task)
     }
 
