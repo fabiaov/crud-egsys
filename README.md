@@ -16,10 +16,10 @@ To testing API i let Json file named by ```teste-api-spring-egsys.postman_collec
 in repo with all requests to do for testing.
 
 ## About DB
-about the database i initialize with 3 main categories 
-1 - Casa
-2 - Trabalho
-3 - Faculdade
+about the database i initialize with 3 main categories \n
+1 - Casa\n
+2 - Trabalho\n
+3 - Faculdade\n
 you can test with all these Id's in the request for endpoint
 
 
