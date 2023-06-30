@@ -8,7 +8,7 @@ object TaskViewTest {
     fun build() = TaskView(
         id = 1,
         title = "Fazer comida",
-        description = "não Esquecer comida no fogo e fazer outra coisa",
+        description = "nao Esquecer comida no fogo e fazer outra coisa",
         category = CategoryTest.build(),
         dataCriation = LocalDateTime.now(),
         changeData = LocalDate.now()
