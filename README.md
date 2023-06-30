@@ -10,3 +10,17 @@ docker-compose up
 ```
 and the containers will be up
 this project is a CRUD project to train Kotlin Spring Boot and tecnical test 
+
+#Testing API
+To testing API i let Json file named by ```teste-api-spring-egsys.postman_collect```
+in repo with all requests to do for testing.
+
+## About DB
+about the database i initialize with 3 main categories 
+1 - Casa
+2 - Trabalho
+3 - Faculdade
+you can test with all these Id's in the request for endpoint
+
+
+
