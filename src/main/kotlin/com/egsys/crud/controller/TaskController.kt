@@ -69,7 +69,8 @@ class TaskController(private val service: TaskService) {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     @CacheEvict(value = ["tasks"], allEntries = true)
-    fun delete(@PathVariable id: Long){
+    fun delete(@PathVariable id: Long): ResponseEntity<Any> {
         service.delete(id)
+        return ResponseEntity.ok().build()
     }
 }
