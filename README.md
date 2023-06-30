@@ -16,7 +16,7 @@ To testing API i let Json file named by ```teste-api-spring-egsys.postman_collec
 in repo with all requests to do for testing.
 
 ## About DB
-about the database i initialize with 3 main categories <br>
+About the database, i initialize with 3 main categories <br>
 1 - Casa<br>
 2 - Trabalho<br>
 3 - Faculdade<br>
