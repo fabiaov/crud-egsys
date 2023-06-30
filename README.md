@@ -20,7 +20,7 @@ About the database, i initialize with 3 main categories <br>
 1 - Casa<br>
 2 - Trabalho<br>
 3 - Faculdade<br>
-you can test with all these Id's in the request for endpoint
+you can test with all these Id's in the request's endpoint
 
 
 
